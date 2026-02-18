@@ -1,4 +1,7 @@
 # Sistema-de-turnos
 Ingeniería de sistemas
 
-#Nombre del sistema
+# Arquitectura del sistema: Nombre: 
+Turno Bank
+
+# Problema que resuelve:
