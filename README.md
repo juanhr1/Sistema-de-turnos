@@ -1,4 +1,4 @@
-# Sistema-de-turnos
+# Sistema de turnos
 Ingeniería de sistemas
 
 # Arquitectura del sistema: Nombre: 
@@ -52,7 +52,11 @@ el administrador: se encarga de configurar el sistema, definir los tipos de serv
 el empleado: visualiza la lista de turnos, llama al siguiente cliente y registra las atenciones realizadas
 el cliente: solicita su turno desde el aplicativo, consulta el estado y tiempo de estimado de espera.
 
+# Riesgos y fallas
+Si el servicio de gestión de turnos, no se pueden generar nuevos turnos afectando directamente la atención de los clientes, por lo que se pueden implementar reintentos automáticos y notificaciones internas al personal
+Si falla la base de datos, se perdería el acceso a los usuarios, los turnos activos y desorganizaría la operación diaria
 
+por eso es fundamental contar con respaldos periodicos y mecanismos de recuperación.
 
 
 
