@@ -37,7 +37,14 @@ Los servicios se comunican mediante solicitudes y respuestas entre sí, siguen l
 Cada servidor responde devolviendo la informsación requerida para que el sistema funcione de manera integrada.
 
 # Tipo de arquitectura
-Se decidió emplear la arquitectura de microservicios o una arquitectura de sistemas distribuidos debido a que permite dividir el sistema en varios servicios independientes que llevan a cabo varios elementos necesarios como la escalabilidad, evitando que cada módulo se caiga y poder mantener el sistema funcional.
+Se decidió emplear la arquitectura de microservicios o una arquitectura de sistemas
+distribuidos debido a que permite dividir el sistema en varios servicios independientes que
+llevan a cabo varios elementos necesarios como la escalabilidad, evitando que cada módulo se
+caiga y poder mantener el sistema funcional.
+
+# Base de datos
+En la base de datos del sistema deben almacenarse los usuarios (clientes, empleados y administrador), los turnos generados (número, fecha, hora y estado) y los tipos de servicio (asesoría, preferencial, servicios generales).
+Se debe tener en cuenta los datos críticos para no peder la información y tener un control de todos los clientes para no presentar incomodidades operativas con el banco.
 
 
 
