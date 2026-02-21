@@ -3,4 +3,6 @@ Ingeniería de sistemas
 
 # Arquitectura del sistema: Nombre: 
 Turno Bank
-kono
+
+# Problema que resuelve:
+La desorganización y largo tiempo de espera en la atención al cliente en un banco
