@@ -46,6 +46,12 @@ caiga y poder mantener el sistema funcional.
 En la base de datos del sistema deben almacenarse los usuarios (clientes, empleados y administrador), los turnos generados (número, fecha, hora y estado) y los tipos de servicio (asesoría, preferencial, servicios generales).
 Se debe tener en cuenta los datos críticos para no peder la información y tener un control de todos los clientes para no presentar incomodidades operativas con el banco.
 
+# Usuarios del sistema
+El sistema será utilizado por 3 tipos de usuario y cada uno tiene unas funciones y permisos diferentes.
+el administrador: se encarga de configurar el sistema, definir los tipos de servicios, revisar reportes y supervisar el funcionamiento general.
+el empleado: visualiza la lista de turnos, llama al siguiente cliente y registra las atenciones realizadas
+el cliente: solicita su turno desde el aplicativo, consulta el estado y tiempo de estimado de espera.
+
 
 
 
