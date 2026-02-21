@@ -32,3 +32,18 @@ La desorganización y largo tiempo de espera en la atención al cliente en un ba
 - Registrar turno ya atendido.
 - Historial de turnos (almacenamiento y consulta de turnos y atenciones brindadas)
 
+# Comunicación entre servicios
+Los servicios se comunican mediante solicitudes y respuestas entre sí, siguen la lógica de cliente-servidor, cuando se registra un nuevo turno el servicio de turnos solicita información al servicio de usuarios y este responde con datos del cliente.
+Cada servidor responde devolviendo la informsación requerida para que el sistema funcione de manera integrada.
+
+
+
+
+
+
+
+
+
+
+
+
