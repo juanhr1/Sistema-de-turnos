@@ -9,11 +9,26 @@ La desorganización y largo tiempo de espera en la atención al cliente en un ba
 
 # Servicios del sistema:
 ¿Qué funciones principales tiene el sistema?
-
 - Registro y autenticación de clientes-usuarios.
 - Solicitud de turnos.
 - Servicio encargado de la asignación automática de turnos.
 - Notificaciones en torno al estado del turno.
 - Administración del sistema y gestión de usuario.
 - Historial de atención y turnos.
+
+¿Qué partes pueden trabajar por separado?
+- Servicio de autenticación.
+- Servicio de turnos.
+- Servicio de notificaciones.
+- Servicio de administración.
+
+¿Qué procesos son independientes?
+- Registrar un nuevo usuario
+- Inicio de sesión o validación de credenciales.
+- Solicitud de turno.
+- Asignación automática de un turno disponible.
+- Notificar al cliente sobre su turno y su estado.
+- CRUD Administrativo de gestión de usuarios del sistema.
+- Registrar turno ya atendido.
+- Historial de turnos (almacenamiento y consulta de turnos y atenciones brindadas)
 
