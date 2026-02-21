@@ -36,6 +36,9 @@ La desorganización y largo tiempo de espera en la atención al cliente en un ba
 Los servicios se comunican mediante solicitudes y respuestas entre sí, siguen la lógica de cliente-servidor, cuando se registra un nuevo turno el servicio de turnos solicita información al servicio de usuarios y este responde con datos del cliente.
 Cada servidor responde devolviendo la informsación requerida para que el sistema funcione de manera integrada.
 
+# Tipo de arquitectura
+Se decidió emplear la arquitectura de microservicios o una arquitectura de sistemas distribuidos debido a que permite dividir el sistema en varios servicios independientes que llevan a cabo varios elementos necesarios como la escalabilidad, evitando que cada módulo se caiga y poder mantener el sistema funcional.
+
 
 
 
