@@ -118,8 +118,50 @@ El sistema debe almacenar la siguiente información:
 - Se vería comprometida la confianza en el sistema. 
 
 ¿Todos los servicios usan la misma base de datos o cada uno tiene la suya?
+
 En una arquitectura basada en microservicios, lo mejor es que cada servicio tenga su propia base de datos para tener una mayor independencia entre servicios, mejor escalabilidad, mayor seguridad y aislamiento de datos para evitar que una falla en un servicio afecte toda la información del sistema.
 
-- ¿Es un sistema pequeño o grande?
+¿Es un sistema pequeño o grande?
+
 Es un sistema mediano escalando a grande. Aunque su funcionalidad principal es la gestión de turnos, involucra múltiples tipos de usuarios, varios servicios independientes, base de datos, comunicación entre servicios y posibilidad de implementación en varias sucursales.
 Debido a su arquitectura basada en microservicios y su capacidad de crecimiento, puede considerarse un sistema escalable con proyección a gran escala.
+
+## Usuarios del sistema
+
+- ¿Quién usará el sistema?
+	
+administrador
+empleado/operador
+cliente
+
+- ¿Todos pueden hacer lo mismo?
+
+No, cada usuario tiene funciones y permisos diferentes dentro del sistema
+
+- Administrador: No tiene turnos, es el encargado de configurar el sistema, definir tipos de servicios, revisar reporte y monitorear funcionamiento general.
+
+- Empleado/Operador: No puede generar cambios dentro del sistema, se encarga de visualizar la lista de turnos, llama al siguiente cliente y registra qué cliente ya fue atendido.
+
+- Cliente: Solicita el turno requerido desde la aplicación web, consulta su estado y el tiempo estimado de espera.
+
+## Riesgos y fallas posibles
+
+¿Qué pasaría si falla:
+
+- El servicio:
+
+Si falla el servicio de turnos no se podrían generar nuevos turnos, los empleados no podrían visualizar qué cliente sigue, se detendría la organización de la atención, se generarían filas físicas nuevamente y se afectaría la experiencia del cliente
+
+Algunas posibles soluciones sería implementar reintentos automáticos en las solicitudes, tener una instancia secundaria del servicio de alta disponibilidad e implementar monitoreo en tiempo real para detectar fallos
+
+- La base de datos:
+
+Si falla la base de datos no se pueden consultar turnos activos, no se podrían validar usuarios, se perdería temporalmente el acceso al historial y el sistema podría quedar inoperativo.
+
+Algunas soluciones pueden ser la replicación de base de datos, uso de mecanismos de recuperación y un caché temporal para mantener información crítica disponible.
+
+- Servidor principal:
+
+Si falla el servidor principal los servicios podrían quedar fuera, la plataforma no estaría disponible para clientes ni empleados y se interrumpiría la atención digital
+
+Se puede implementar una infraestructura en la nube con escalabilidad automática, usar contenedores como Docker para facilitar la recuperación y tener un monitoreo constante del sistema.
