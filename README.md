@@ -91,6 +91,35 @@ El sistema podrá tener una cantidad variable de usuarios dependiendo del tamañ
 Sí, el sistema necesita escalar debido a que debe soportar un número creciente de usuarios y solicitudes simultáneas, especialmente en horarios de alta demanda como fechas de pago o jornadas especiales.
 Al ser una plataforma que en un tiempo puede implementarse en múltiples sucursales, el volumen de clientes, empleados y administradores conectados al mismo tiempo puede aumentar. Por eso el sistema debe ser capaz de incrementar su capacidad de procesamiento, almacenamiento y manejo de peticiones sin afectar el rendimiento, la disponibilidad ni los tiempos de respuesta.
 
+## Base de datos
+¿Qué información debe guardarse?
+
+El sistema debe almacenar la siguiente información:
+- Usuarios: datos de clientes, empleados y administradores.
+- Turnos generados: número de turno, tipo de servicio, fecha, hora, estado (pendiente, en atención, atendido y cancelado).
+- Tipos de servicio: categoría de atención como asesoría, consignación, retiro, servicios preferenciales, entre otros.
+- Historial de atención: registro de turnos ya atendidos con información del empleado que realizó la atención.
+- Configuración del sistema: Prioridades como preferencial o general y tiempos estimados.
+
+¿Qué datos son críticos?
+
+- Información de los turnos activos porque afectan la atención en tiempo real.
+- Registro de atenciones realizadas para control interno y auditoría.
+- Datos de usuarios y empleados como credenciales y roles.
+- Configuración de servicios y prioridades como estado actual de cada turno.
+  
+¿Qué pasaría si se pierden?
+
+- Se desorganizan la atención del día.
+- No habría control sobre qué clientes ya fueron atendidos. 
+- Se perdería el historial para generar reportes.
+- Se afectarían procesos internos de supervisión.
+- El banco podría enfrentar inconformidad de clientes y problemas operativos.
+- Se vería comprometida la confianza en el sistema. 
+
+¿Todos los servicios usan la misma base de datos o cada uno tiene la suya?
+En una arquitectura basada en microservicios, lo mejor es que cada servicio tenga su propia base de datos para tener una mayor independencia entre servicios, mejor escalabilidad, mayor seguridad y aislamiento de datos para evitar que una falla en un servicio afecte toda la información del sistema.
+
 - ¿Es un sistema pequeño o grande?
 Es un sistema mediano escalando a grande. Aunque su funcionalidad principal es la gestión de turnos, involucra múltiples tipos de usuarios, varios servicios independientes, base de datos, comunicación entre servicios y posibilidad de implementación en varias sucursales.
 Debido a su arquitectura basada en microservicios y su capacidad de crecimiento, puede considerarse un sistema escalable con proyección a gran escala.
