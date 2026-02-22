@@ -79,3 +79,18 @@ El servicio de turnos responde y entrega los turnos aún no atendidos o disponib
 El servicio de turnos responde al servicio de notificaciones entregando información acerca del turno como notificación (estado, hora, número de turno) y el servicio de usuarios brinda información de contacto del usuario para poder contactar con él, enviando el aviso.
 La base de datos responde al servicio de autenticación devolviendo credenciales y datos personales.
 La base de datos o servicio encargado de almacenar los usuarios entrega datos de cuenta al servicio de administración, el servicio de turnos brinda información acerca del estado de los turnos e información acerca de estos y asignaciones; Por último el historial le brinda los registros de atención brindada. Todo para el control adecuado del sistema.
+
+## Tipo de Arquitectura
+
+Se decidió emplear la arquitectura de microservicios o sistemas distribuidos debido a que permite dividir el sistema en varios servicios independientes que permiten llevar a cabo varios elementos necesarios como la escalabilidad, evitando que cada parte del sistema o los servicios en módulos se caigan todos juntos, así se mantiene el sistema funcional en sus módulos sin que se caiga una parte al hacerle mejoras o cambios.
+
+- ¿Cuántos usuarios tendrá el sistema?
+El sistema podrá tener una cantidad variable de usuarios dependiendo del tamaño del Banco, inicialmente puede usar cien usuarios diarios en la sucursal como clientes solicitando turnos, empleados gestionando atención y administradores supervisando
+
+- ¿Necesita escalar?
+Sí, el sistema necesita escalar debido a que debe soportar un número creciente de usuarios y solicitudes simultáneas, especialmente en horarios de alta demanda como fechas de pago o jornadas especiales.
+Al ser una plataforma que en un tiempo puede implementarse en múltiples sucursales, el volumen de clientes, empleados y administradores conectados al mismo tiempo puede aumentar. Por eso el sistema debe ser capaz de incrementar su capacidad de procesamiento, almacenamiento y manejo de peticiones sin afectar el rendimiento, la disponibilidad ni los tiempos de respuesta.
+
+- ¿Es un sistema pequeño o grande?
+Es un sistema mediano escalando a grande. Aunque su funcionalidad principal es la gestión de turnos, involucra múltiples tipos de usuarios, varios servicios independientes, base de datos, comunicación entre servicios y posibilidad de implementación en varias sucursales.
+Debido a su arquitectura basada en microservicios y su capacidad de crecimiento, puede considerarse un sistema escalable con proyección a gran escala.
