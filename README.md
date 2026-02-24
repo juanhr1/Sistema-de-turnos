@@ -7,11 +7,13 @@ Optimiza la atención al cliente eliminando las filas físicas desorganizadas. R
 
 # Servicios del sistema
 Servicio de Emisión de Turnos (Kiosko): Interfaz para que el cliente elija su trámite y obtenga un identificador.
-
 Servicio de Notificación (Pantallas/SMS): Gestiona la visualización de turnos en salas de espera y alertas al móvil.
-
 Servicio de Atención (Módulo Ejecutivo): Herramienta para que el empleado llame al siguiente cliente o derive el turno.
-
 Servicio de Administración y Analítica: Panel de control para ver estadísticas en tiempo real y reportes históricos.
 
 # Comunicación entre servicios
+Un modelo híbrido:
+
+REST API: Para acciones sincrónicas (configuración, login de empleados).
+WebSockets (SignalR o Socket.io): Crucial para la actualización en tiempo real de las pantallas de la sala de espera cuando un ejecutivo presiona "Siguiente".
+Message Broker (opcional): Para registrar eventos de auditoría sin bloquear la interfaz.
