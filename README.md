@@ -27,3 +27,6 @@ Message Broker (opcional): Para registrar eventos de auditoría sin bloquear la 
 Microservicios orientada a eventos. Esto permite que, si el servicio de notificaciones por SMS falla, el kiosko de turnos y las pantallas sigan funcionando de forma independiente.
 
 # Base de datos
+Relacional (PostgreSQL / SQL Server): Para garantizar la integridad de los datos de los turnos, usuarios y configuraciones de las sucursales.
+
+Cache (Redis): Para mantener la cola de turnos activa en memoria y asegurar una respuesta instantánea.
