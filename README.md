@@ -1,3 +1,48 @@
 # Sistema-de-turnos
 Ingeniería de sistemas
 
+# Arquitectura del Sistema: BankFlow Manager
+# Problema que resuelve
+Optimiza la atención al cliente eliminando las filas físicas desorganizadas. Resuelve la ineficiencia en la asignación de personal, reduce el tiempo de espera percibido y permite priorizar clientes según su perfil (ej. clientes VIP, adultos mayores o trámites específicos).
+
+# Servicios del sistema
+Servicio de Emisión de Turnos (Kiosko): Interfaz para que el cliente elija su trámite y obtenga un identificador.
+
+Servicio de Notificación (Pantallas/SMS): Gestiona la visualización de turnos en salas de espera y alertas al móvil.
+
+Servicio de Atención (Módulo Ejecutivo): Herramienta para que el empleado llame al siguiente cliente o derive el turno.
+
+Servicio de Administración y Analítica: Panel de control para ver estadísticas en tiempo real y reportes históricos.
+
+# Comunicación entre servicios
+Un modelo híbrido:
+
+REST API: Para acciones sincrónicas (configuración, login de empleados).
+
+WebSockets (SignalR o Socket.io): Crucial para la actualización en tiempo real de las pantallas de la sala de espera cuando un ejecutivo presiona "Siguiente".
+
+Message Broker (opcional): Para registrar eventos de auditoría sin bloquear la interfaz.
+
+# Tipo de arquitectura
+Microservicios orientada a eventos. Esto permite que, si el servicio de notificaciones por SMS falla, el kiosko de turnos y las pantallas sigan funcionando de forma independiente.
+
+# Base de datos
+Relacional (PostgreSQL / SQL Server): Para garantizar la integridad de los datos de los turnos, usuarios y configuraciones de las sucursales.
+
+Cache (Redis): Para mantener la cola de turnos activa en memoria y asegurar una respuesta instantánea.
+
+# Usuarios del sistema
+Clientes: Usuarios finales que solicitan el servicio.
+
+Cajeros/Ejecutivos: Personal que atiende y gestiona el flujo de personas.
+
+Gerentes de Sucursal: Supervisan la operación y tiempos de espera.
+
+Administradores IT: Gestionan la configuración técnica y accesos.
+
+# Riesgos y fallas posibles
+Pérdida de conectividad: Si la red cae, el sistema debe poder operar en modo "Local" o manual.
+
+Saturación del sistema: Picos inesperados de clientes que degraden el rendimiento de la base de datos.
+
+Desincronización de pantallas: Que un turno aparezca en la pantalla pero el ejecutivo vea a otro cliente en su sistema (se mitiga con protocolos de comunicación robustos).
