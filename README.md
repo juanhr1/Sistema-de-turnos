@@ -39,3 +39,5 @@ Cajeros/Ejecutivos: Personal que atiende y gestiona el flujo de personas.
 Gerentes de Sucursal: Supervisan la operación y tiempos de espera.
 
 Administradores IT: Gestionan la configuración técnica y accesos.
+
+# Riesgos y fallas posibles
