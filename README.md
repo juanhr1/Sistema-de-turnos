@@ -13,3 +13,5 @@ Servicio de Notificación (Pantallas/SMS): Gestiona la visualización de turnos 
 Servicio de Atención (Módulo Ejecutivo): Herramienta para que el empleado llame al siguiente cliente o derive el turno.
 
 Servicio de Administración y Analítica: Panel de control para ver estadísticas en tiempo real y reportes históricos.
+
+# Comunicación entre servicios
