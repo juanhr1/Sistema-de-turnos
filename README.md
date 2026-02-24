@@ -24,3 +24,4 @@ WebSockets (SignalR o Socket.io): Crucial para la actualización en tiempo real 
 Message Broker (opcional): Para registrar eventos de auditoría sin bloquear la interfaz.
 
 # Tipo de arquitectura
+Microservicios orientada a eventos. Esto permite que, si el servicio de notificaciones por SMS falla, el kiosko de turnos y las pantallas sigan funcionando de forma independiente.
