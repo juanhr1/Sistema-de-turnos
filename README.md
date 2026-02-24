@@ -30,3 +30,12 @@ Microservicios orientada a eventos. Esto permite que, si el servicio de notifica
 Relacional (PostgreSQL / SQL Server): Para garantizar la integridad de los datos de los turnos, usuarios y configuraciones de las sucursales.
 
 Cache (Redis): Para mantener la cola de turnos activa en memoria y asegurar una respuesta instantánea.
+
+# Usuarios del sistema
+Clientes: Usuarios finales que solicitan el servicio.
+
+Cajeros/Ejecutivos: Personal que atiende y gestiona el flujo de personas.
+
+Gerentes de Sucursal: Supervisan la operación y tiempos de espera.
+
+Administradores IT: Gestionan la configuración técnica y accesos.
