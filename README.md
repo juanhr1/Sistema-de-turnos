@@ -18,3 +18,18 @@ Habrá 3 tipos de usuario: Clientes del banco: Quienes podrán ingresar desde al
 
 - ¿Qué pasaría si no existiera?
 Las sucursales de bancos seguirán utilizando la asignación de turnos manual o con sistemas aislados, que implicaría desorganización y mayores tiempos de espera lo que genera para los clientes hacer filas físicas consumiéndose mayor parte de tiempo esperando por asignación de turnos y esperando el momento que lo atiendan sin conocer el estado de su turno.
+
+# Servicios del sistema
+- ¿Qué funciones principales tiene el sistema?
+Registro y autenticación de clientes-usuarios. Solicitud de turnos. Servicio encargado de la asignación automática de turnos. Notificaciones en torno al estado del turno. Administración del sistema y gestión de usuario. Historial de atención y turnos.
+
+- ¿Qué partes pueden trabajar por separado?
+Al ser este un sistema de asignación de turnos distribuido, todas las ramas o partes pueden funcionar y trabajar por separado, los procesos pueden llevarse a cabo sin depender del funcionamiento interno de otros, solo intercambiando información cuando sea necesario:
+
+Servicio de autenticación. 
+Servicio de turnos. 
+Servicio de notificaciones. 
+Servicio de administración.
+
+- ¿Qué procesos son independientes?
+Registrar un nuevo usuario Inicio de sesión o validación de credenciales. Solicitud de turno. Asignación automática de un turno disponible. Notificar al cliente sobre su turno y su estado. CRUD Administrativo de gestión de usuarios del sistema. Registrar turno ya atendido. Historial de turnos (almacenamiento y consulta de turnos y atenciones brindadas).
