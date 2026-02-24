@@ -25,3 +25,5 @@ Message Broker (opcional): Para registrar eventos de auditoría sin bloquear la 
 
 # Tipo de arquitectura
 Microservicios orientada a eventos. Esto permite que, si el servicio de notificaciones por SMS falla, el kiosko de turnos y las pantallas sigan funcionando de forma independiente.
+
+# Base de datos
