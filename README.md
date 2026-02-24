@@ -85,3 +85,14 @@ En una arquitectura basada en microservicios, lo mejor es que cada servicio teng
 ¿Es un sistema pequeño o grande?
 
 Es un sistema mediano escalando a grande. Aunque su funcionalidad principal es la gestión de turnos, involucra múltiples tipos de usuarios, varios servicios independientes, base de datos, comunicación entre servicios y posibilidad de implementación en varias sucursales. Debido a su arquitectura basada en microservicios y su capacidad de crecimiento, puede considerarse un sistema escalable con proyección a gran escala.
+
+# Usuarios del sistema
+- ¿Quién usará el sistema? administrador, empleado/operador, cliente
+
+- ¿Todos pueden hacer lo mismo? No, cada usuario tiene funciones y permisos diferentes dentro del sistema
+
+Administrador: No tiene turnos, es el encargado de configurar el sistema, definir tipos de servicios, revisar reporte y monitorear funcionamiento general.
+
+Empleado/Operador: No puede generar cambios dentro del sistema, se encarga de visualizar la lista de turnos, llama al siguiente cliente y registra qué cliente ya fue atendido.
+
+Cliente: Solicita el turno requerido desde la aplicación web, consulta su estado y el tiempo estimado de espera.
