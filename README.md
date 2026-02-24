@@ -96,3 +96,19 @@ Administrador: No tiene turnos, es el encargado de configurar el sistema, defini
 Empleado/Operador: No puede generar cambios dentro del sistema, se encarga de visualizar la lista de turnos, llama al siguiente cliente y registra qué cliente ya fue atendido.
 
 Cliente: Solicita el turno requerido desde la aplicación web, consulta su estado y el tiempo estimado de espera.
+
+# Riesgos y fallas posibles
+
+¿Qué pasaría si falla:
+
+- El servicio: Si falla el servicio de turnos no se podrían generar nuevos turnos, los empleados no podrían visualizar qué cliente sigue, se detendría la organización de la atención, se generarían filas físicas nuevamente y se afectaría la experiencia del cliente
+
+Algunas posibles soluciones sería implementar reintentos automáticos en las solicitudes, tener una instancia secundaria del servicio de alta disponibilidad e implementar monitoreo en tiempo real para detectar fallos
+
+- La base de datos: Si falla la base de datos no se pueden consultar turnos activos, no se podrían validar usuarios, se perdería temporalmente el acceso al historial y el sistema podría quedar inoperativo.
+
+Algunas soluciones pueden ser la replicación de base de datos, uso de mecanismos de recuperación y un caché temporal para mantener información crítica disponible.
+
+- Servidor principal: Si falla el servidor principal los servicios podrían quedar fuera, la plataforma no estaría disponible para clientes ni empleados y se interrumpiría la atención digital
+
+Se puede implementar una infraestructura en la nube con escalabilidad automática, usar contenedores como Docker para facilitar la recuperación y tener un monitoreo constante del sistema.
