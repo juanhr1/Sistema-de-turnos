@@ -41,3 +41,8 @@ Gerentes de Sucursal: Supervisan la operación y tiempos de espera.
 Administradores IT: Gestionan la configuración técnica y accesos.
 
 # Riesgos y fallas posibles
+Pérdida de conectividad: Si la red cae, el sistema debe poder operar en modo "Local" o manual.
+
+Saturación del sistema: Picos inesperados de clientes que degraden el rendimiento de la base de datos.
+
+Desincronización de pantallas: Que un turno aparezca en la pantalla pero el ejecutivo vea a otro cliente en su sistema (se mitiga con protocolos de comunicación robustos).
