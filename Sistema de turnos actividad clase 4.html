@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Actividad Clase 4</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f6f8;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+h1, h2 {
+  color: #2c3e50;
+}
+
+h1 {
+  text-align: center;
+}
+
+.section {
+  margin-top: 30px;
+}
+
+label {
+  font-weight: bold;
+}
+
+.line {
+  border-bottom: 1px solid #ccc;
+  margin: 8px 0 16px 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+th {
+  background-color: #e9eef3;
+}
+
+.note {
+  background: #eef7ff;
+  padding: 15px;
+  border-left: 4px solid #3498db;
+  margin-top: 20px;
+}
+
+.footer {
+  margin-top: 30px;
+  padding: 15px;
+  background: #f1f1f1;
+  border-radius: 8px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>🌐 Actividad Clase 4</h1>
+<h2>Comunicación entre Servicios + REST + Eventos + Service Discovery</h2>
+
+<p><strong>Equipo:</strong> ____________________</p>
+<p><strong>Proyecto:</strong> ____________________</p>
+
+<div class="section">
+<h2>🪜 1. Interacciones entre Servicios</h2>
+
+<p><strong>Interacción 1: Solicitud de turno</strong></p>
+<label>Servicio que envía: Aplicación web - Cliente</label>
+<div class="line"></div>
+<label>Servicio que recibe: Servicio de Gestión de turnos</label>
+<div class="line"></div>
+<label>Información enviada: Id del usuario autentificado y tipo de servicio (preferencial, asesoría o general)</label>
+<div class="line"></div>
+<label>¿Qué sucede si no responde? El cliente realiza una solicitud directa al servicio
+    de turnos, este servicio valida que el usuario esté autenticado, genera automáticamente
+    el número de de turno según el tipo de atención y lo guarda en su propia base de datos, 
+    luego responde con el número asignado y el estado inicial (pendiente). <br><br>
+
+    Si el sistema no responde el cliente no puede obtener turno y perdería la funcionalidad
+    principal, se deben aplcar reintentos automáticos y monitoreo del servicio.
+
+</label>
+<div class="line"></div>
+
+<p><strong>Interacción 2: Llamar siguiente turno</strong></p>
+<div class="line"></div>
+<label>Servicio que envía: Empleado (interfaz interna)</label>
+<div class="line"></div>
+<label>Servicio que recibe: Servicio de turnos </label>
+<div class="line"></div>
+<label>Información enviada: Solicitud para obtener el siguiente turno según prioridad configurada  </label>
+<div class="line"></div>
+<label>¿Qué sucede si no responde? El empleado solicita el siguiente turno disponible.
+    El servicio de turnos consulta su base de datos, selecciona el turno correspondiente, 
+    cambia su estado a "en atención" y responde con los datos del turno. <br><br>
+    Si este proceso no funciona se detiene la atención organizada y el banco volvería a la desorganización manual.
+</label>
+<div class="line"></div>
+
+
+
+<p><strong>Interacción 3: Notificación de estado </strong></p>
+<div class="line"></div>
+</div>
+<label>Servicio que envía: Servicio de turnos </label>
+<div class="line"></div>
+<label>Servicio que recibe: Servicio de notificaciones </label>
+<div class="line"></div>
+<label>Información enviada: Número de turno, cambio de estado, datos del usuario </label>
+<div class="line"></div>
+<label>¿Qué sucede si no responde? Cuando un turno cambia de estado, el servicio 
+    de turnos genera un evento interno. El servicio de notificaciones recibe el evento 
+    y envía la alerta correspondiente al cliente. <br><br>
+    Si no funciona el cliente no recibe el aviso inmediato aunque el sistema principal sigue funcionando.
+</label>
+<div class="line"></div>
+
+<div class="section">
+<h2>🪜 2. REST o Eventos</h2>
+
+<table>
+<tr>
+<th>Interacción</th>
+<th>REST</th>
+<th>Evento</th>
+<th>¿Por qué?</th>
+</tr>
+<tr>
+<td>1: Solicitud de turno</td>
+<td> ✌️ </td>
+<td></td>
+<td>El cliente hace una petición directa y necesita respuesta inmediata.</td>
+</tr>
+<tr>
+<td>2: LLamar turno</td>
+<td> ✌️ </td>
+<td></td>
+<td> El empleado necesita confirmación inmediata para continuar. </td>
+</tr>
+<tr>
+<td>3: Notificación</td>
+<td></td>
+<td> ✌️ </td>
+<td> Se genera automáticamente cuando cambia el estado del turno. </td>
+</tr>
+</table>
+</div>
+
+<div class="section">
+<h2>🪜 3. Síncrono o Asíncrono</h2>
+
+<table>
+<tr>
+<th>Interacción</th>
+<th>Síncrono</th>
+<th>Asíncrono</th>
+<th>Justificación</th>
+</tr>
+<tr>
+<td>1: Solicitud de turno</td>
+<td> 💖 </td>
+<td></td>
+<td> El cliente puede esperar su número de turno. </td>
+</tr>
+<tr>
+<td>2: LLamar turno</td>
+<td> 💖 </td>
+<td></td>
+<td> El empleado necesita respuesta inmediata. </td>
+</tr>
+<tr>
+<td>3: Notificación</td>
+<td></td>
+<td> 💖 </td>
+<td> Puede ejecutarse sin bloquear el sistema principal. </td>
+</tr>
+</table>
+</div>
+
+<div class="section">
+<h2>🪜 4. Eventos Importantes del Sistema</h2>
+1️⃣ Turno generado <br><br>
+2️⃣ Turno llamado <br><br>
+3️⃣ Turno atendido <br><br>
+4️⃣ Turno cancelado <br><br>
+5️⃣ Usuario autenticado <br><br>
+6️⃣ Falla detectada en un servicio <br><br>
+Estos eventos permiten que otros servicios reaccionen sin depender directamente entre sí.
+</div>
+
+<div class="section">
+<h2>🪜 5. Análisis de Fallos</h2>
+<label>Servicio más crítico: Servicio de turnos, porque gestiona la lógica principal de asignación y atención. </label>
+<div class="line"></div>
+<label>¿Qué pasaría si falla? No se generan nuevos turnos, no se puede llamar siguiente turno, se pierde el orden de atención, se afecta directamente ña experiencia del cliente</label>
+<div class="line"></div>
+<label>¿El sistema debe detenerse o continuar? Debe continuar, el administrador aún podría acceder a reportes anteriores. </label>
+<div class="line"></div>
+<label>¿Cómo podrían manejar este fallo? Alta disponibilidad (Instancia secundaria), monitoreo constante, reintentos automáticos e infraestructura escalable en la nube. </label>
+<div class="line"></div>
+</div>
+
+<div class="section">
+<h2>🪜 6. Service Discovery</h2>
+<label>¿Qué problema ocurre si cambia la IP de un servicio? En microservicios, cada servicio puede ejecutarse 
+    en contenedores o diferentes servidores. Si cambia el IP los demás servicios no sabrián dónde encontrarlo.
+</label>
+<div class="line"></div>
+<label>¿Cómo sabría un servicio dónde encontrar otro? Consultando un servicio de Service Discovery 
+    que mantiene un registro actualizado de las ubicaciones de los servicios activos.
+</label>
+<div class="line"></div>
+<label>¿Por qué sería útil Service Discovery? Porque el sistema está pensado para escalar, si el servicio 
+    de turnos se replica, los demás servicios podrán encontrarlo automáticamente.
+</label>
+<div class="line"></div>
+<label>¿Dónde lo aplicarían en su sistema? Servicio de turnos, servicio de autenticación, servicio de notificaciones, servicio de administración.</label>
+<div class="line"></div>
+</div>
+
+<div class="section">
+<h2>🪜 7. Mini Diagrama</h2>
+<p>Dibujen:</p>
+<p><strong>Servicio A → Service Discovery → Servicio B</strong></p>
+<p><strong>Empleado -> Service Discovery -> Servicio de turnos </strong></p>
+<p><strong> Servicio de turnos -> Base de datos propia </strong></p>
+<p><strong> Servicio de turnos -> evento -> Servicio de notificaciones </strong></p>
+<p><strong> Servicio de autenticación -> base de datos de usuario </strong></p>
+</div>
+
+<div class="note">
+💡 <strong>Ayuda rápida</strong><br>
+REST → petición directa<br>
+Evento → algo ocurrió<br>
+Síncrono → espera respuesta<br>
+Asíncrono → continúa sin esperar<br>
+Service Discovery → permite encontrar servicios automáticamente
+</div>
+
+<div class="footer">
+🎤 El equipo debe poder explicar:<br>
+✔ una interacción importante<br>
+✔ un evento del sistema<br>
+✔ qué pasa si un servicio falla<br>
+✔ dónde usarían Service Discovery
+</div>
+
+</div>
+</body>
+</html>
