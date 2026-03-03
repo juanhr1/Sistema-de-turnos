@@ -7,6 +7,20 @@ Turno Bank
 # Problema que resuelve:
 La desorganización y largo tiempo de espera en la atención al cliente en un banco
 
+# Usuarios
+- Clientes:
+    - Solicita turnos en línea
+    - Consulta tiempo estimado
+    - Recibe notificaciones
+- Empleado:
+    - Visualiza cola de turnos
+    - Llama siguiente turno
+    - Registra atención realizada
+ - Administrador:
+    - Configura tipos de servicios
+    - Supervisa
+    - Consulta reportes
+
 # Servicios del sistema:
 ¿Qué funciones principales tiene el sistema?
 - Registro y autenticación de clientes-usuarios.
