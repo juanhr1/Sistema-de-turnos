@@ -1,25 +1,11 @@
 # Sistema de turnos
 Ingeniería de sistemas
 
-# Arquitectura del sistema: Nombre: 
+# Nombre: 
 Turno Bank
 
 # Problema que resuelve:
 La desorganización y largo tiempo de espera en la atención al cliente en un banco
-
-# Usuarios
-- Clientes:
-    - Solicita turnos en línea
-    - Consulta tiempo estimado
-    - Recibe notificaciones
-- Empleado:
-    - Visualiza cola de turnos
-    - Llama siguiente turno
-    - Registra atención realizada
- - Administrador:
-    - Configura tipos de servicios
-    - Supervisa
-    - Consulta reportes
 
 # Servicios del sistema:
 ¿Qué funciones principales tiene el sistema?
@@ -39,10 +25,9 @@ La desorganización y largo tiempo de espera en la atención al cliente en un ba
       -Organización por prioridad.
       -Manejo de atención preferencial.
       -Control de concurrencia.
-      -Ordenamiento dinámico.
   
 - Servicio de notificación
-      - Envío de correos o alertas.
+      -Envío de alertas.
       -Avisa proximidad de turno.
       -Confirmación de turno generado.
   
@@ -73,37 +58,89 @@ Cada servicio se ejecuta en un contenedor independiente, tiene su propia base de
 Cada proceso se comunica mediante APIs REST o eventos.
 
 # Comunicación entre servicios
-Los servicios se comunican mediante solicitudes y respuestas entre sí, siguen la lógica de cliente-servidor, cuando se registra un nuevo turno el servicio de turnos solicita información al servicio de usuarios y este responde con datos del cliente.
-Cada servidor responde devolviendo la informsación requerida para que el sistema funcione de manera integrada.
+Se implementan dos tipos de comunicación:
+- Comunicación Síncrona (REST API)
+Usada cuando se requiere respuesta inmediata, como por ejemplo:
+Cliente > servicio de turnos > Respuesta inmediata con número de turno
+
+- Comunicación Asíncrona (EVENTOS)
+Se usa mensajería basada en eventos para desacoplar servicios, como por ejemplo el siguiente flujo:
+1. Servicio de turnos
+2. Publica evento “TurnoCreado”
+3. Servicio de notificaciones escucha el evento
+4. Envía alerta al cliente.
+Esto permite que si NOTIFICACIONES falla, TURNOS siga funcionando
+
+Respondan:
+
+1. ¿Qué servicio necesita información de otro?
+
+El servicio de turnos necesita validar la identidad del cliente a través del servicio de autenticación antes de generar un turno.
+El servicio de turnos publica un evento cuando se crea un turno, el cual es consumido por el servicio de notificaciones.
+El servicio de gestión de filas necesita consultar el estado de los turnos al servicio de turnos para organizar la prioridad.
+El servicio de reportes consume información del servicio de turnos mediante eventos o consultas internas controladas
+
+2. ¿Quién solicita datos?
+
+El servicio de turnos solicita validación de usuario al servicio de autentificación mediante comunicación REST
+El servicio de Gestión de filas solicita al servicio de turnos, la lista de turnos pendientes
+El servicio de notificaciones escucha eventos generados por el servicio de turnos (asíncrona)
+El servicio de administración solicita métricas al servicio de reportes
+
+Cada servicio solicita información exclusivamente a través de APIs públicas definidas, nunca accediendo directamente a bases de datos externas.
+
+3. ¿Quién responde?
+Ejemplo:
+Solicita turno → Verifica información → Atención de turno
+
+El servicio de autenticación responde a las solicitudes del servicio de turnos validando credenciales.
+El servicio de turnos responde a las solicitudes del servicio de gestión de filas enviando la lista actualizada de turnos.
+El servicio de notificaciones responde a eventos generados por el servicio de turnos enviando alertas al cliente
+El servicio de reportes responde a solicitudes del servicio de administración proporcionando estadísticas.
 
 # Tipo de arquitectura
-Se decidió emplear la arquitectura de microservicios o una arquitectura de sistemas
-distribuidos debido a que permite dividir el sistema en varios servicios independientes que
-llevan a cabo varios elementos necesarios como la escalabilidad, evitando que cada módulo se
-caiga y poder mantener el sistema funcional.
+Se decidió emplear la arquitectura de microservicios porque permite dividir el sistema en varios servicios independientes que permitan escalabilidad, aísla fallos y permite el mantenimiento sin detener todo el sistema.
 
 # Base de datos
-En la base de datos del sistema deben almacenarse los usuarios (clientes, empleados y administrador), los turnos generados (número, fecha, hora y estado) y los tipos de servicio (asesoría, preferencial, servicios generales).
-Se debe tener en cuenta los datos críticos para no peder la información y tener un control de todos los clientes para no presentar incomodidades operativas con el banco.
+Cada servicio tiene su propia base de datos
+- BD Autentificación
+      Usuarios
+      Roles
+      Credenciales cifradas
+- BD Turnos
+      Número de turno
+      Categoría
+      Estado
+      Fecha y hora
+- BD Filas
+      Orden de atención
+      Prioridades
+- BD Reportes
+      Historial
+  
+Se debe tener en cuenta los datos críticos (Turnos activos, Estados de atención, Credenciales de acceso, Historial) para no perder la información, tener un control de todos los clientes y no presentar incomodidades operativas con el banco.
 
 # Usuarios del sistema
-El sistema será utilizado por 3 tipos de usuario y cada uno tiene unas funciones y permisos diferentes.
-el administrador: se encarga de configurar el sistema, definir los tipos de servicios, revisar reportes y supervisar el funcionamiento general.
-el empleado: visualiza la lista de turnos, llama al siguiente cliente y registra las atenciones realizadas
-el cliente: solicita su turno desde el aplicativo, consulta el estado y tiempo de estimado de espera.
+- Clientes:
+    - Solicita turnos en línea
+    - Consulta tiempo estimado
+    - Recibe notificaciones
+- Empleado:
+    - Visualiza cola de turnos
+    - Llama siguiente turno
+    - Registra atención realizada
+ - Administrador:
+    - Configura tipos de servicios
+    - Supervisa
+    - Consulta reportes
 
 # Riesgos y fallas
-Si el servicio de gestión de turnos, no se pueden generar nuevos turnos afectando directamente la atención de los clientes, por lo que se pueden implementar reintentos automáticos y notificaciones internas al personal
-Si falla la base de datos, se perdería el acceso a los usuarios, los turnos activos y desorganizaría la operación diaria
 
-por eso es fundamental contar con respaldos periodicos y mecanismos de recuperación.
+Si falla el servicio:
+No se generan nuevos turnos
 
+Si falla la base de datos:
+No se pueden consultar ni registrar datos
 
-
-
-
-
-
-
-
-
+Si falla el servidor principal:
+El sistema no estaría disponible
