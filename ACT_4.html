@@ -200,7 +200,11 @@ pre {
 <label>¿El sistema debe detenerse o continuar?</label>
 <div class="line">Debe continuar parcialmente mientras se recupera el servicio.</div>
 <label>¿Cómo podrían manejar este fallo?</label>
-<div class="line">Alta disponibilidad, balanceador de carga, replicación de base de datos, monitoreo y circuit breaker.</div>
+<div class="line">Alta disponibilidad : En lugar de tener un solo Servicio de Turnos, se pueden tener varias versiones funcionando al mismo tiempo. Si una se cae, otra sigue trabajando.
+balanceador de carga: Organizador que reparte las solicitudes entre varias copias del servicio. Así no se sobrecarga una sola y se reduce el riesgo de falla.
+replicación de base de datos: La información de los turnos puede guardarse en más de un lugar. Si una base de datos falla, otra puede seguir funcionando sin perder datos.
+  monitoreo constante: Usar herramientas que den aviso inmediato cuando algo empieza a fallar, para poder actuar rápido.
+  circuit breaker: Si un servicio no está respondiendo, el sistema deja de intentar comunicarse con él por un momento. Esto evita que todo el sistema se bloquee mientras el servicio se recupera. </div>
 </div>
 
 <div class="section">
@@ -227,4 +231,5 @@ pre {
 
 </div>
 </body>
+
 </html>
