@@ -1,6 +1,7 @@
 # Sistema de turnos
 Ingeniería de sistemas
 
+Valentina-Samboní
 # Nombre: 
 Turno Bank
 
@@ -144,3 +145,4 @@ No se pueden consultar ni registrar datos
 
 Si falla el servidor principal:
 El sistema no estaría disponible
+
