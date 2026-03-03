@@ -23,28 +23,54 @@ La desorganización y largo tiempo de espera en la atención al cliente en un ba
 
 # Servicios del sistema:
 ¿Qué funciones principales tiene el sistema?
-- Registro y autenticación de clientes-usuarios.
-- Solicitud de turnos.
-- Servicio encargado de la asignación automática de turnos.
-- Notificaciones en torno al estado del turno.
-- Administración del sistema y gestión de usuario.
-- Historial de atención y turnos.
+- Servicio de autenticación
+      -Riesgo de usuarios.
+      -Inicio de sesión.
+      -Validación de credenciales.
+      -Gestión de roles.
+  
+- Servicio de turnos
+      -Generación de turnos.
+      -Asignación automática por categoría.
+      -Cambio de estado de turno.
+      -Validación de disponibilidad.
+  
+- Servicio de gestión de filas
+      -Organización por prioridad.
+      -Manejo de atención preferencial.
+      -Control de concurrencia.
+      -Ordenamiento dinámico.
+  
+- Servicio de notificación
+      - Envío de correos o alertas.
+      -Avisa proximidad de turno.
+      -Confirmación de turno generado.
+  
+- Servicio de reportes
+      -Historial de atención.
+      -Estadísticas de tiempos promedio.
+      -Reportes por categoría.
 
 ¿Qué partes pueden trabajar por separado?
 - Servicio de autenticación.
 - Servicio de turnos.
+- Servicio de gestión de filas.
 - Servicio de notificaciones.
-- Servicio de administración.
+- Servicio de reportes.
+
+Cada servicio se ejecuta en un contenedor independiente, tiene su propia base de datos y puede desplegarse sin afectar a los demás.
 
 ¿Qué procesos son independientes?
-- Registrar un nuevo usuario
+- Registro de usuario.
 - Inicio de sesión o validación de credenciales.
 - Solicitud de turno.
 - Asignación automática de un turno disponible.
 - Notificar al cliente sobre su turno y su estado.
 - CRUD Administrativo de gestión de usuarios del sistema.
 - Registrar turno ya atendido.
-- Historial de turnos (almacenamiento y consulta de turnos y atenciones brindadas)
+- Historial de turnos.
+
+Cada proceso se comunica mediante APIs REST o eventos.
 
 # Comunicación entre servicios
 Los servicios se comunican mediante solicitudes y respuestas entre sí, siguen la lógica de cliente-servidor, cuando se registra un nuevo turno el servicio de turnos solicita información al servicio de usuarios y este responde con datos del cliente.
