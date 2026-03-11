@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Actividad Clase 4 - Turno Bank</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f6f8;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+h1, h2 {
+  color: #2c3e50;
+}
+
+h1 {
+  text-align: center;
+}
+
+.section {
+  margin-top: 30px;
+}
+
+label {
+  font-weight: bold;
+}
+
+.line {
+  margin: 8px 0 16px 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+th {
+  background-color: #e9eef3;
+}
+
+.note {
+  background: #eef7ff;
+  padding: 15px;
+  border-left: 4px solid #3498db;
+  margin-top: 20px;
+}
+
+.footer {
+  margin-top: 30px;
+  padding: 15px;
+  background: #f1f1f1;
+  border-radius: 8px;
+}
+
+pre {
+  background-color: #f8f8f8;
+  padding: 15px;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>🌐 Actividad Clase 4</h1>
+<h2>Comunicación entre Servicios + REST + Eventos + Service Discovery</h2>
+
+<p><strong>Equipo:</strong> Valentina Samboni – Keny Quiñonez – Juan Camilo Herrera – Stefania Collazos</p>
+<p><strong>Proyecto:</strong> Turno Bank</p>
+
+<div class="section">
+<h2>🪜 1. Interacciones entre Servicios</h2>
+
+<p><strong>Interacción 1</strong></p>
+<label>Servicio que envía:</label>
+<div class="line">Servicio de Turnos</div>
+<label>Servicio que recibe:</label>
+<div class="line">Servicio de Usuarios (Autenticación)</div>
+<label>Información enviada:</label>
+<div class="line">ID del usuario para validar identidad y rol antes de generar turno</div>
+<label>¿Qué sucede si no responde?</label>
+<div class="line">No se puede generar el turno porque no se valida el usuario.</div>
+
+<p><strong>Interacción 2</strong></p>
+<label>Servicio que envía:</label>
+<div class="line">Servicio de Turnos</div>
+<label>Servicio que recibe:</label>
+<div class="line">Servicio de Notificaciones</div>
+<label>Información enviada:</label>
+<div class="line">Número de turno, tipo de servicio, estado y hora estimada</div>
+<label>¿Qué sucede si no responde?</label>
+<div class="line">El turno se genera, pero el cliente no recibe notificación.</div>
+
+<p><strong>Interacción 3</strong></p>
+<label>Servicio que envía:</label>
+<div class="line">Servicio de Atención (Empleado)</div>
+<label>Servicio que recibe:</label>
+<div class="line">Servicio de Turnos</div>
+<label>Información enviada:</label>
+<div class="line">Solicitud del siguiente turno disponible</div>
+<label>¿Qué sucede si no responde?</label>
+<div class="line">El empleado no puede continuar la atención.</div>
+</div>
+
+<div class="section">
+<h2>🪜 2. REST o Eventos</h2>
+
+<table>
+<tr>
+<th>Interacción</th>
+<th>REST</th>
+<th>Evento</th>
+<th>¿Por qué?</th>
+</tr>
+<tr>
+<td>1</td>
+<td>✔</td>
+<td></td>
+<td>Se requiere validación inmediata del usuario.</td>
+</tr>
+<tr>
+<td>2</td>
+<td></td>
+<td>✔</td>
+<td>Se genera un evento "TurnoCreado" después de registrar el turno.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>✔</td>
+<td></td>
+<td>El empleado necesita respuesta inmediata.</td>
+</tr>
+</table>
+</div>
+
+<div class="section">
+<h2>🪜 3. Síncrono o Asíncrono</h2>
+
+<table>
+<tr>
+<th>Interacción</th>
+<th>Síncrono</th>
+<th>Asíncrono</th>
+<th>Justificación</th>
+</tr>
+<tr>
+<td>1</td>
+<td>✔</td>
+<td></td>
+<td>Debe validarse antes de generar turno.</td>
+</tr>
+<tr>
+<td>2</td>
+<td></td>
+<td>✔</td>
+<td>No es necesario detener el sistema si la notificación tarda.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>✔</td>
+<td></td>
+<td>La atención requiere respuesta inmediata.</td>
+</tr>
+</table>
+</div>
+
+<div class="section">
+<h2>🪜 4. Eventos Importantes del Sistema</h2>
+1️⃣ TurnoCreado<br><br>
+2️⃣ TurnoLlamado<br><br>
+3️⃣ TurnoAtendido
+</div>
+
+<div class="section">
+<h2>🪜 5. Análisis de Fallos</h2>
+<label>Servicio más crítico:</label>
+<div class="line">Servicio de Turnos</div>
+<label>¿Qué pasaría si falla?</label>
+<div class="line">No se pueden generar ni gestionar turnos. Se pierde la funcionalidad principal.</div>
+<label>¿El sistema debe detenerse o continuar?</label>
+<div class="line">Debe continuar parcialmente mientras se recupera el servicio.</div>
+<label>¿Cómo podrían manejar este fallo?</label>
+<div class="line">* Alta disponibilidad : En lugar de tener un solo Servicio de Turnos, se pueden tener varias versiones funcionando al mismo tiempo. Si una se cae, otra sigue trabajando. <br>
+* Balanceador de carga: Organizador que reparte las solicitudes entre varias copias del servicio. Así no se sobrecarga una sola y se reduce el riesgo de falla.<br>
+* Replicación de base de datos: La información de los turnos puede guardarse en más de un lugar. Si una base de datos falla, otra puede seguir funcionando sin perder datos.<br>
+* Monitoreo constante: Usar herramientas que den aviso inmediato cuando algo empieza a fallar, para poder actuar rápido.<br>
+* Circuit breaker: Si un servicio no está respondiendo, el sistema deja de intentar comunicarse con él por un momento. Esto evita que todo el sistema se bloquee mientras el servicio se recupera. </div>
+</div>
+
+<div class="section">
+<h2>🪜 6. Service Discovery</h2>
+<label>¿Qué problema ocurre si cambia la IP de un servicio?</label>
+<div class="line">Los demás servicios no podrían localizarlo y fallaría la comunicación.</div>
+<label>¿Cómo sabría un servicio dónde encontrar otro?</label>
+<div class="line">Consultando un servidor de registro dinámico (Service Registry).</div>
+<label>¿Por qué sería útil Service Discovery?</label>
+<div class="line">Permite encontrar servicios automáticamente sin depender de IP fija.</div>
+<label>¿Dónde lo aplicarían en su sistema?</label>
+<div class="line">Entre todos los microservicios: Usuarios, Turnos, Notificaciones y Administración.</div>
+</div>
+
+<div class="section">
+<h2>🪜 7. Mini Diagrama</h2>
+<pre>
+<img src="UML_TURNO_BANK.png" alt="Diagrama UML Turno Bank" style="max-width: 100%; height: auto;">
+
+</pre>
+</div>
+
+
+
+</div>
+</body>
+
+</html>
+
