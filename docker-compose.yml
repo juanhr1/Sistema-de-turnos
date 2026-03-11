@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+
+  usuarios-service:
+    build: ./usuarios
+    ports:
+      - "5001:5000"
+
+  turnos-service:
+    build: ./turnos
+    ports:
+      - "5002:5000"
