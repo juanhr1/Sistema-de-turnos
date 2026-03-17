@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+
+# Servicio Frontend (Base proporcionada)
+  web:
+    image: nginx:alpine
+    container_name: tienda_frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - app
+
+  # Servicio de Base de Datos
+  db:
+    image: mysql:8.0
+    container_name: tienda_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password_123
+      MYSQL_DATABASE: tienda_inventario
+      MYSQL_USER: user_app
+      MYSQL_PASSWORD: user_password_456
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  # Servicio Backend (Nuevo servicio adicional)
+  app:
+    image: node:18-slim
+    container_name: tienda_backend
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_USER: user_app
+      DB_PASSWORD: user_password_456
+      DB_NAME: tienda_inventario
+    ports:
+      - "3000:3000"
+
+volumes:
+  db_data:
