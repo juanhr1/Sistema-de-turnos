@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de Inventarios</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📦 Gestor de Inventarios</h1>
+            <div class="stats">
+                <button id="lowStockBtn" class="btn-alert">⚠️ Stock Bajo</button>
+            </div>
+        </header>
+
+        <div class="form-section">
+            <h2>➕ Nuevo Producto</h2>
+            <form id="productForm">
+                <div class="form-group">
+                    <input type="text" id="name" placeholder="Nombre del producto" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="description" placeholder="Descripción">
+                </div>
+                <div class="form-row">
+                    <input type="number" id="quantity" placeholder="Cantidad" min="0" required>
+                    <input type="number" id="price" placeholder="Precio" step="0.01" min="0" required>
+                </div>
+                <div class="form-group">
+                    <select id="category">
+                        <option value="">Seleccionar categoría</option>
+                        <option value="Electrónicos">Electrónicos</option>
+                        <option value="Empaque">Empaque</option>
+                        <option value="Ropa">Ropa</option>
+                        <option value="Alimentos">Alimentos</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary">Guardar Producto</button>
+            </form>
+        </div>
+
+        <div class="table-section">
+            <div class="table-header">
+                <h2>📋 Productos</h2>
+                <input type="text" id="search" placeholder="🔍 Buscar productos...">
+            </div>
+            <div id="productsTable" class="table-container">
+                <!-- Productos se cargan aquí dinámicamente -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
