@@ -33,13 +33,13 @@ CREATE TABLE IF NOT EXISTS turns (
 """)
 conn.commit()
 
-contador = 1
-
-# Crear turno
 @app.route("/turn", methods=["POST"])
 def crear_turno():
-    global contador
-
+    # Contar cuántos turnos hay en la BD y sumar 1
+    cur.execute("SELECT COUNT(*) FROM turns")
+    total = cur.fetchone()[0]
+    turno_id = "T" + str(total + 1)
+    
     data = request.json
     identificacion = data["identificacion"]
 
